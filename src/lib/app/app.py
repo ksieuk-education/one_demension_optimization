@@ -25,6 +25,8 @@ def main():
             min=settings.min,
             max=settings.max,
         )
+        _app_graphic.print_table(data)
+        print()
 
 
 if __name__ == "__main__":
