@@ -1,20 +1,20 @@
+import typing
+
 import pandas as pd
 
 import lib.models as _models
+import functools
 
-# import exceptions
 
-
-def fib(n: int) -> int:
-    a, b = 0, 1
-    for _ in range(n):
-        a, b = b, a + b
-
-    return a
+@functools.lru_cache()
+def recur_fibo(n: int) -> int:
+    if n <= 1:
+        return n
+    return recur_fibo(n-1) + recur_fibo(n-2)
 
 
 def get_fibonacci(
-    f: callable,
+    f: typing.Callable,
     a: _models.NUMBER_TYPE,
     b: _models.NUMBER_TYPE,
     l: _models.NUMBER_TYPE = 0.1,
@@ -22,11 +22,11 @@ def get_fibonacci(
     maximization: bool = False,
 ) -> tuple[dict[str : _models.NUMBER_TYPE], pd.DataFrame]:
     n = 0
-    while fib(n) < (b - a) / l:
+    while recur_fibo(n) < (b - a) / l:
         n += 1
 
-    lambd = a + fib(n - 2) * (b - a) / fib(n)
-    mu = a + fib(n - 1) * (b - a) / fib(n)
+    lambd = a + recur_fibo(n - 2) * (b - a) / recur_fibo(n)
+    mu = a + recur_fibo(n - 1) * (b - a) / recur_fibo(n)
     k = 0
 
     f_lambd = f(lambd)
@@ -51,10 +51,10 @@ def get_fibonacci(
             temp = mu
 
             mu = (
-                a + fib(n - k - 2) * (b - a) / fib(n - k - 1) if maximization else lambd
+                a + recur_fibo(n - k - 2) * (b - a) / recur_fibo(n - k - 1) if maximization else lambd
             )
             lambd = (
-                temp if maximization else a + fib(n - k - 3) * (b - a) / fib(n - k - 1)
+                temp if maximization else a + recur_fibo(n - k - 3) * (b - a) / recur_fibo(n - k - 1)
             )
 
             temp = f_mu
@@ -68,9 +68,9 @@ def get_fibonacci(
             temp = lambd
 
             lambd = (
-                a + fib(n - k - 3) * (b - a) / fib(n - k - 1) if maximization else mu
+                a + recur_fibo(n - k - 3) * (b - a) / recur_fibo(n - k - 1) if maximization else mu
             )
-            mu = temp if maximization else a + fib(n - k - 2) * (b - a) / fib(n - k - 1)
+            mu = temp if maximization else a + recur_fibo(n - k - 2) * (b - a) / recur_fibo(n - k - 1)
 
             temp = f_lambd
 
