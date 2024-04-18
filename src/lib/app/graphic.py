@@ -1,3 +1,4 @@
+import typing
 import warnings
 
 import matplotlib.pyplot as plt
@@ -9,7 +10,7 @@ warnings.filterwarnings("ignore")
 
 
 def plot(
-    f: callable,
+    f: typing.Callable,
     data: pd.DataFrame,
     method_name: str,
     min: int | float,

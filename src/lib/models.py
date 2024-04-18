@@ -2,7 +2,7 @@ NUMBER_TYPE = int | float
 PHI = (5**0.5 - 1) / 2  # PHI ~= 0.618
 
 
-def get_report(f, a, b, iters) -> dict[str:NUMBER_TYPE]:
+def get_report(f, a, b, iters) -> str:
     optimum = (a + b) / 2
     f_optimum = f(optimum)
 
