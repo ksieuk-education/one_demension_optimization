@@ -20,7 +20,7 @@ def get_fibonacci(
     l: _models.NUMBER_TYPE = 0.1,
     eps: _models.NUMBER_TYPE = 1e-6,
     maximization: bool = False,
-) -> tuple[str, pd.DataFrame]:
+) -> tuple[dict[str : _models.NUMBER_TYPE], pd.DataFrame]:
     n = 0
     while recur_fibo(n) < (b - a) / l:
         n += 1

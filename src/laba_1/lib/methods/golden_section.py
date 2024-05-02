@@ -1,18 +1,16 @@
-import typing
-
 import pandas
 
 import lib.models as _models
 
 
 def golden_section(
-    f: typing.Callable,
+    f: callable,
     a: _models.NUMBER_TYPE,
     b: _models.NUMBER_TYPE,
     l: _models.NUMBER_TYPE = 0.1,
     eps: _models.NUMBER_TYPE = 1e-6,
     maximization: bool = False,
-) -> tuple[str, pandas.DataFrame]:
+) -> tuple[dict[str : _models.NUMBER_TYPE], pandas.DataFrame]:
     lambd = a + (1 - _models.PHI) * (b - a)
     mu = a + _models.PHI * (b - a)
 
